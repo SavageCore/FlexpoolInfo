@@ -222,23 +222,18 @@ class FlexpoolInfoSensor(Entity):
         self.data4 = r4.json()
         paymenturldata = self.data4
 
-        # sending get request to Congecko API endpoint
+        # sending get request to Coingecko API endpoint
         if self.token.lower() == "xch":
-            r5 = requests.get(url=coingeckoxchurl)
-            self.data5 = r5.json()
-            coingeckodata = self.data5
+            coingeckourl = coingeckoxchurl
         if self.token.lower() == "etc":
-            r5 = requests.get(url=coingeckoetcurl)
-            self.data5 = r5.json()
-            coingeckodata = self.data5
+            coingeckourl = coingeckoetcurl
         if self.token.lower() == "eth":
-            r5 = requests.get(url=coingeckoethurl)
-            self.data5 = r5.json()
-            coingeckodata = self.data5
+            coingeckourl = coingeckoethurl
         if self.token.lower() == "zil":
-            r5 = requests.get(url=coingeckozilurl)
-            self.data5 = r5.json()
-            coingeckodata = self.data5
+            coingeckourl = coingeckozilurl
+        r5 = requests.get(url=coingeckourl)
+        self.data5 = r5.json()
+        coingeckodata = self.data5
 
         try:
             if statsurldata:
@@ -264,23 +259,17 @@ class FlexpoolInfoSensor(Entity):
                 if self.token.lower() == "xch":
                     if len(r5.json()['chia']):
                         self._single_coin_in_local_currency = r5.json()['chia'][self.local_currency]
-                        calculate_unpaid = self._unpaid_balance / 1000000000000000000 * self._single_coin_in_local_currency
-                        self._unpaid_local_balance = round(calculate_unpaid, 2)
                 if self.token.lower() == "etc":
                     if len(r5.json()['ethereum-classic']):
                         self._single_coin_in_local_currency = r5.json()['ethereum-classic'][self.local_currency]
-                        calculate_unpaid = self._unpaid_balance / 1000000000000000000 * self._single_coin_in_local_currency
-                        self._unpaid_local_balance = round(calculate_unpaid, 2)
                 if self.token.lower() == "eth":
                     if len(r5.json()['ethereum']):
                         self._single_coin_in_local_currency = r5.json()['ethereum'][self.local_currency]
-                        calculate_unpaid = self._unpaid_balance / 1000000000000000000 * self._single_coin_in_local_currency
-                        self._unpaid_local_balance = round(calculate_unpaid, 2)
                 if self.token.lower() == "zil":
                     if len(r5.json()['zilliqa']):
                         self._single_coin_in_local_currency = r5.json()['zilliqa'][self.local_currency]
-                        calculate_unpaid = self._unpaid_balance / 1000000000000000000 * self._single_coin_in_local_currency
-                        self._unpaid_local_balance = round(calculate_unpaid, 2)
+                calculate_unpaid = self._unpaid_balance / 1000000000000000000 * self._single_coin_in_local_currency
+                self._unpaid_local_balance = round(calculate_unpaid, 2)
             else:
                 raise ValueError()
 
