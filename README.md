@@ -89,7 +89,7 @@ sensor:
 Please note that the Flexpool API accepts the address in three formats:
 
 - ETH/ETC: 42 characters beginning with 0x
-- XCH: 62 characters beggining with xch1
+- XCH: 62 characters beginning with xch1
 - ZIL: 42 characters beginning with zil1
 
 The address must be encapsulated in quotation marks as follows:
